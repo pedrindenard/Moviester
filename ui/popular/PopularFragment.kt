@@ -43,8 +43,8 @@ class PopularFragment : Fragment() {
 
     // Define adapter e ação de click
     private fun configAdapterRecyclerView() {
-        popular_movie_list.adapter = adapter
-        popular_movie_list.layoutManager = LinearLayoutManager(context)
+        up_coming_movie_list.adapter = adapter
+        up_coming_movie_list.layoutManager = LinearLayoutManager(context)
     }
 
     // Busca filmes da lista Popular da API
