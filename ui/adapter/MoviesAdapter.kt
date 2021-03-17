@@ -45,39 +45,12 @@ class MoviesAdapter(private val context: Context,
         private val moviePoster by lazy {
             View.item_poster
         }
-        private val movieReleaseData by lazy {
-            View.text_release_data_movie
-        }
         private val movieDescription by lazy {
             View.text_description_movie
         }
         private val movieTitle by lazy {
             View.text_name_movie
         }
-        private val movieRate by lazy {
-            View.movieRate
-        }
-//        private val movieBudget by lazy {
-//            View.
-//        }
-//        private val moviePopularity by lazy {
-//            View.
-//        }
-//        private val movieStatus by lazy {
-//            View.
-//        }
-//        private val movieVoteCount by lazy {
-//            View.
-//        }
-//        private val movieRuntime by lazy {
-//            View.
-//        }
-//        private val movieLanguage by lazy {
-//            View.
-//        }
-//        private val movieRevenue by lazy {
-//            View.
-//        }
 
         init {
             View.setOnClickListener {
@@ -91,11 +64,9 @@ class MoviesAdapter(private val context: Context,
             this.movie = movie
             movieTitle.text = movie.title
             movieDescription.text = movie.description
-            movieReleaseData.text = movie.releaseDate
-            appCompatRatingBar(movieRate, movie.rate)
-            Glide.with(itemView)
-                .load(movie.poster)
-                .transform(CenterCrop())
+            Glide.with(context)
+                .load("https://image.tmdb.org/t/p/w500"+movie.backdrop)
+                .placeholder(R.drawable.ic_movie_error)
                 .into(moviePoster)
         }
     }

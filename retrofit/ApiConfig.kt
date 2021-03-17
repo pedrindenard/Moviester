@@ -10,4 +10,5 @@ object ApiEndPoint {
     const val GET_POPULAR_MOVIE = "movie/popular"
     const val GET_TOP_RATE_MOVIE = "movie/top_rated"
     const val GET_UPCOMING_MOVIE = "discover/movie?sort_by=primary_release_date.asc&primary_release_year=2021"
+    const val GET_MOVIE_DETAIL = "movie/{id}"
 }

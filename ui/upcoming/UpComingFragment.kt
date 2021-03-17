@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.moviester.MyApp
 import com.app.moviester.R
+import com.app.moviester.model.Movie
 import com.app.moviester.ui.adapter.MoviesAdapter
 import kotlinx.android.synthetic.main.fragment_popular.*
 
@@ -19,10 +21,16 @@ class UpComingFragment : Fragment() {
         UpComingViewModelFactory((activity?.application as MyApp).repository)
     }
 
+    // Adapter dos recyclerview
     private val adapter by lazy {
         context?.let {
             MoviesAdapter(context = it)
         }
+    }
+
+    // Procura pra onde vai no navigation_graphic
+    private val controller by lazy {
+        findNavController()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +51,9 @@ class UpComingFragment : Fragment() {
 
     // Define adapter e ação de click
     private fun configAdapterRecyclerView() {
+        adapter?.onItemClickListener = {
+            goToMovieDetails(it)
+        }
         up_coming_movie_list.adapter = adapter
         up_coming_movie_list.layoutManager = LinearLayoutManager(context)
     }
@@ -59,5 +70,12 @@ class UpComingFragment : Fragment() {
                 Log.i("Error", it.errorBody().toString()) // Log de error
             }
         })
+    }
+
+    // Vai para o fragment Movie Details
+    private fun goToMovieDetails(movie: Movie) {
+        val direction = UpComingFragmentDirections
+            .actionNavigationUpComingToMovieDetailsFragment(movie)
+        controller.navigate(direction)
     }
 }
