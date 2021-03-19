@@ -24,8 +24,7 @@ class MovieRepository(private val api: Api = AppRetrofit().movieService) {
     }
 
     // Busca detalhes dos filmes
-    suspend fun getMovieDetails(id: Int)
-            : Response<Movie> {
+    suspend fun getMovieDetails(id: Int): Response<Movie> {
         return api.getMovieDetails(id)
     }
 }

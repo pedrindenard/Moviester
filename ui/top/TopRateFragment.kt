@@ -13,6 +13,7 @@ import com.app.moviester.MyApp
 import com.app.moviester.R
 import com.app.moviester.model.Movie
 import com.app.moviester.ui.adapter.MoviesAdapter
+import com.app.moviester.ui.popular.PopularFragmentDirections
 import kotlinx.android.synthetic.main.fragment_top_rate.*
 
 class TopRateFragment : Fragment() {
@@ -74,8 +75,8 @@ class TopRateFragment : Fragment() {
 
     // Vai para o fragment Movie Details
     private fun goToMovieDetails(movie: Movie) {
-        val direction = TopRateFragmentDirections
-            .actionNavigationTopRateToMovieDetailsFragment(movie)
+        val direction = PopularFragmentDirections
+            .actionNavigationPopularToMovieDetailsFragment(movie)
         controller.navigate(direction)
     }
 }

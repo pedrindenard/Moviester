@@ -1,6 +1,7 @@
 package com.app.moviester.ui.details
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import com.app.moviester.MyApp
 import com.app.moviester.R
 import com.app.moviester.extension.appCompatRatingBar
 import com.app.moviester.model.Movie
+import com.app.moviester.repository.MovieRepository
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import kotlinx.android.synthetic.main.fragment_movie_detail.*
@@ -49,14 +51,9 @@ class MovieDetailsFragment : Fragment() {
                 text_movie_details_runtime.text = it.body()?.runtime.toString()
                 text_movie_details_title.text = it.body()?.title
                 text_movie_details_description.text = it.body()?.description
-                textView2.text = it.body()?.language
-                textView3.text = it.body()?.status
-                textView8.text = it.body()?.budget.toString()
-                textView5.text = it.body()?.popularity.toString()
-                textView6.text = it.body()?.revenue.toString()
-                textView7.text = it.body()?.vote_count.toString()
                 getScore(it)
                 getPoster(it)
+                getBackdrop(it)
             }
         })
     }
@@ -73,5 +70,12 @@ class MovieDetailsFragment : Fragment() {
             .load("https://image.tmdb.org/t/p/w500"+MovieDetails.body()?.poster)
             .transform(CenterCrop())
             .into(imagePoster)
+    }
+
+    private fun getBackdrop(MovieDetails: Response<Movie>) {
+        Glide.with(requireContext())
+            .load("https://image.tmdb.org/t/p/original" + MovieDetails.body()?.backdrop)
+            .transform(CenterCrop())
+            .into(imageDetail)
     }
 }

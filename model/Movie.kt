@@ -18,11 +18,6 @@ data class  Movie(
     @SerializedName("poster_path") var poster: String?,
     @SerializedName("backdrop_path") var backdrop: String?,
     @SerializedName("release_date") var releaseDate: String?,
-    @SerializedName("budget") var budget: String?,
     @SerializedName("popularity") var popularity: Float?,
-    @SerializedName("revenue") var revenue: String?,
-    @SerializedName("status") var status: String?,
-    @SerializedName("vote_count") var vote_count: Int?,
     @SerializedName("runtime") var runtime: Int?,
-    @SerializedName("original_language") var language: String?
 ) : Serializable
