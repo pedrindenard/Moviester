@@ -20,4 +20,11 @@ class MovieDetailsViewModel(private val repository: MovieRepository) : ViewModel
             mResponse.value = response
         }
     }
+
+    // Salva o filme e suas informações na lista
+    fun saveMovieDB(movie: Movie) {
+        viewModelScope.launch {
+            repository.saveMovieDB(movie)
+        }
+    }
 }
