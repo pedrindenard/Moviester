@@ -8,7 +8,7 @@ import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-// Retrofit
+// Retrofit, OkHttpClient e Json
 
 class AppRetrofit {
     private val client = OkHttpClient

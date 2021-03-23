@@ -26,16 +26,16 @@ class MovieRepository(private val dao: MovieDAO, private val api: Api = AppRetro
     }
 
     // Busca filmes na lista
-    val findMovieDB: Flow<List<Movie>> = dao.findMovie()
+    val movieListDatabase: Flow<List<Movie>> = dao.findMovieList()
 
     // Deleta filmes na lista
-    suspend fun deleteMovieDB(movie: Movie) {
-        dao.deleteMovie(movie)
+    suspend fun deleteMovieList(movie: Movie) {
+        dao.deleteMovieList(movie)
     }
 
     // Adiciona filme na lista
-    suspend fun saveMovieDB(movie: Movie) {
-        movie.id = 1
-        dao.saveMovie(movie)
+    suspend fun saveMovieList(movie: Movie) {
+        movie.id
+        dao.saveMovieList(movie)
     }
 }

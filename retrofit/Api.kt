@@ -9,7 +9,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-// Endpoints da API TMDB
+// Endpoints da API The Movie Database
 
 interface Api {
 

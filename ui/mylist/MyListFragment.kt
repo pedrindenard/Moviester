@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.moviester.MyApp
 import com.app.moviester.R
+import com.app.moviester.model.Movie
 import com.app.moviester.ui.adapter.MyListAdapter
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.fragment_my_list.*
 
 class MyListFragment : Fragment() {
@@ -26,34 +29,52 @@ class MyListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        getMoviesDB()
+        getMovieListDatabase()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_my_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        configMyList()
+        configMovieListDatabase()
     }
 
     // Configura Adapter
-    private fun configMyList() {
-        list_favorit.adapter = adapter
-        list_favorit.layoutManager = LinearLayoutManager(context)
+    private fun configMovieListDatabase() {
+        list_movie_database.adapter = adapter
+        list_movie_database.layoutManager = LinearLayoutManager(context)
+        adapter?.onClickListener = {
+            configDialogAlertDeleteMovie(it)
+        }
     }
 
-    // Busca os filmes na lista
-    private fun getMoviesDB() {
-        viewModel.listMovieDB.observe(this, {
+    // Busca os filmes na MyList
+    private fun getMovieListDatabase() {
+        viewModel.movieListLiveData.observe(this, {
             it?.let {
+                it.sortedBy { it.title }
                 adapter?.append(it)
             }
         })
+    }
+
+    // Deleta os filmes da MyList
+    private fun configDialogAlertDeleteMovie(movie: Movie){
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Alerta de remoção!")
+            .setMessage("Você deseja remover o filme '${movie.title}' da sua lista?")
+            .setPositiveButton("Confirmar") { dialog, _ ->
+                viewModel.deleteMovieList(movie)
+                adapter?.deleteMovieList(movie)
+                Toast.makeText(requireContext(),"${movie.title} removido!", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+            .setNeutralButton("Cancelar") { dialog, _ ->
+                dialog.dismiss()
+            }.show()
     }
 }

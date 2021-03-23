@@ -1,4 +1,4 @@
-package com.app.moviester.ui.top
+package com.app.moviester.ui.framelayout.top
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

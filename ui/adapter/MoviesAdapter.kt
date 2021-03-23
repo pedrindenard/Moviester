@@ -37,22 +37,22 @@ class MoviesAdapter(private val context: Context,
         notifyDataSetChanged()
     }
 
-    inner class MovieViewHolder(View: View) : RecyclerView.ViewHolder(View) {
+    inner class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private lateinit var movie: Movie
 
         private val movieBackdrop by lazy {
-            View.item_backdrop
+            view.item_backdrop
         }
         private val movieDescription by lazy {
-            View.text_description_movie
+            view.text_description_movie
         }
         private val movieTitle by lazy {
-            View.text_name_movie
+            view.text_name_movie
         }
 
         init {
-            View.setOnClickListener {
-                if (::movie.isInitialized) {
+            view.setOnClickListener {
+                if(::movie.isInitialized) {
                     onItemClickListener(movie)
                 }
             }

@@ -6,30 +6,30 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.moviester.R
-import com.app.moviester.extension.appCompatRatingBar
+import com.app.moviester.extension.ratingBarConverter
 import com.app.moviester.model.Movie
+import com.app.moviester.ui.adapter.MyListAdapter.MyListViewHolder
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.item_list.view.*
 import kotlinx.android.synthetic.main.item_mylist.view.*
 
 class MyListAdapter(private val context: Context,
                     private val movies: MutableList<Movie> = mutableListOf(),
-                    var onItemClickListener: (movie: Movie) -> Unit = {}
-) : RecyclerView.Adapter<MyListAdapter.MovieViewHolder>() {
+                    var onClickListener: (movie: Movie) -> Unit = {}
+) : RecyclerView.Adapter<MyListViewHolder>() {
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyListViewHolder {
         val view = LayoutInflater
             .from(context)
             .inflate(R.layout.item_mylist, parent, false)
-        return MovieViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(movies[position])
+        return MyListViewHolder(view)
     }
 
     override fun getItemCount(): Int = movies.size
+
+    override fun onBindViewHolder(holder: MyListViewHolder, position: Int) {
+        holder.bind(movies[position])
+    }
 
     fun append(movie: List<Movie>) {
         this.movies.clear()
@@ -37,32 +37,42 @@ class MyListAdapter(private val context: Context,
         notifyDataSetChanged()
     }
 
-    inner class MovieViewHolder(View: View) : RecyclerView.ViewHolder(View) {
+    fun deleteMovieList(movie: Movie){
+        this.movies.removeAt(movies.indexOf(movie))
+        notifyItemRemoved(movies.indexOf(movie))
+    }
+
+    inner class MyListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private lateinit var movie: Movie
 
         private val moviePoster by lazy {
-            View.item_backdrop
+            view.image_poster
         }
         private val movieTitle by lazy {
-            View.text_name_movie
+            view.text_name_movie_mylist
         }
         private val movieDescription by lazy {
-            View.text_description_movie
+            view.text_description_mylist
         }
-        private val movieRate by lazy {
-            View.text_movie_details_rate_mylist
+        private val movieRatingBar by lazy {
+            view.text_movie_details_rate_mylist
         }
         private val movieRuntime by lazy {
-            View.text_movie_details_runtime_mylist
+            view.text_movie_details_runtime_mylist
         }
-        private val movieDate by lazy {
-            View.text_movie_details_release_date
+        private val movieReleaseDate by lazy {
+            view.text_movie_details_release_date_mylist
+        }
+        private val movieDelete by lazy {
+            view.textDeleteFavorite
         }
 
         init {
-            View.setOnClickListener {
-                if (::movie.isInitialized) {
-                    onItemClickListener(movie)
+            movieDelete?.let {
+                it.setOnClickListener {
+                    if(::movie.isInitialized){
+                        onClickListener(movie)
+                    }
                 }
             }
         }
@@ -71,8 +81,8 @@ class MyListAdapter(private val context: Context,
             this.movie = movie
             movieTitle.text = movie.title
             movieDescription.text = movie.description
-            appCompatRatingBar(movieRate, movie.rate)
-            movieDate.text = movie.releaseDate
+            ratingBarConverter(movieRatingBar, movie.rate)
+            movieReleaseDate.text = movie.releaseDate
             movieRuntime.text = movie.runtime.toString()
 
             Glide.with(context)

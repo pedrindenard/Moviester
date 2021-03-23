@@ -14,6 +14,7 @@ class MovieDetailsViewModel(private val repository: MovieRepository) : ViewModel
 
     val mResponse: MutableLiveData<Response<Movie>> = MutableLiveData()
 
+    // Obtem os detalhes dos filmes
     fun getMovieDetails(id: Int) {
         viewModelScope.launch {
             val response = repository.getMovieDetails(id)
@@ -22,9 +23,9 @@ class MovieDetailsViewModel(private val repository: MovieRepository) : ViewModel
     }
 
     // Salva o filme e suas informações na lista
-    fun saveMovieDB(movie: Movie) {
+    fun saveMovieList(movie: Movie) {
         viewModelScope.launch {
-            repository.saveMovieDB(movie)
+            repository.saveMovieList(movie)
         }
     }
 }

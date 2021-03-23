@@ -1,13 +1,10 @@
 package com.app.moviester.ui.details
 
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.widget.Button
-import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
@@ -15,7 +12,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.NavigationUI
 import com.app.moviester.MyApp
 import com.app.moviester.R
-import com.app.moviester.extension.appCompatRatingBar
+import com.app.moviester.extension.ratingBarConverter
 import com.app.moviester.model.Movie
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -27,10 +24,6 @@ import kotlinx.android.synthetic.main.fragment_movie_detail.*
 import retrofit2.Response
 
 class MovieDetailsFragment : Fragment() {
-
-    private var index = 0
-
-    private val lists = arrayOf("Filmes favoritados")
 
     private val argument by navArgs<MovieDetailsFragmentArgs>()
 
@@ -51,9 +44,8 @@ class MovieDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        configAppBarFunction(view)
         getMovieDetails()
-        addMovieDB()
-        configAppBarMovieDetails(view)
     }
 
     // Informações na tela
@@ -61,7 +53,7 @@ class MovieDetailsFragment : Fragment() {
         viewModel.getMovieDetails(movie.id)
         viewModel.mResponse.observe(viewLifecycleOwner, {
             if (it.isSuccessful) {
-                topAppBarTitle.title = "Detalhes do filme"
+                topAppBar.title = "Detalhes do filme"
                 text_movie_details_release_date.text = it.body()?.releaseDate
                 text_movie_details_runtime_mylist.text = it.body()?.runtime.toString()
                 text_movie_details_title.text = it.body()?.title
@@ -76,7 +68,7 @@ class MovieDetailsFragment : Fragment() {
     // Obtem RatingBar
     private fun getScore(movieDetails: Response<Movie>) {
         val rate = movieDetails.body()!!.rate
-        appCompatRatingBar(text_movie_star, rate)
+        ratingBarConverter(text_movie_star, rate)
     }
 
     // Obtem Imagem
@@ -87,6 +79,7 @@ class MovieDetailsFragment : Fragment() {
             .into(imagePoster)
     }
 
+    // Obtem imagem e fundo opaca
     private fun getBackdrop(MovieDetails: Response<Movie>) {
         Glide.with(requireContext())
             .load("https://image.tmdb.org/t/p/original" + MovieDetails.body()?.backdrop)
@@ -94,16 +87,16 @@ class MovieDetailsFragment : Fragment() {
             .into(imageDetail)
     }
 
-    // Configura a AppBar com a funcionalidade de acionar um filme
-    private fun configAppBarMovieDetails(view: View) {
-        val toolbar = view.findViewById<MaterialToolbar>(R.id.topAppBarTitle)
+    // Configura a AppBar com a funcionalidade de acionar um filme e voltar pro layout anterior
+    private fun configAppBarFunction(view: View) {
+        val toolbar = view.findViewById<MaterialToolbar>(R.id.topAppBar)
         val navHostFragment = NavHostFragment.findNavController(this)
         NavigationUI.setupWithNavController(toolbar, navHostFragment)
 
-        topAppBarTitle.setOnMenuItemClickListener {
+        topAppBar.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.add_movie_to_mylist -> {
-                    configDialogAddMovie()
+                R.id.save_movie_on_list -> {
+                    configDialogAlertAddMovie()
                     true
                 }
                 else -> false
@@ -112,28 +105,21 @@ class MovieDetailsFragment : Fragment() {
     }
 
     // Configura dialog para adiconar filme
-    private fun configDialogAddMovie() {
-        var selectItem = lists[index]
-
+    private fun configDialogAlertAddMovie() {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.add_movie_to_mylist)
-            .setSingleChoiceItems(lists, index) { _, which ->
-                index = which
-                selectItem = lists[which]
-            }
-            .setPositiveButton("Salvar filme") { dialog, _ ->
-                if (selectItem == lists[0]) {
-                    addMovieDB()
-                }
+            .setTitle(R.string.add_movie_mylist)
+            .setPositiveButton("SALVAR") { dialog, _ ->
+                saveMovieList()
+                Toast.makeText(requireContext(), "Filme adicionado com sucesso!", Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
             }
-            .setNeutralButton("Cancelar") { dialog, _ ->
+            .setNeutralButton("CANCELAR") { dialog, _ ->
                 dialog.dismiss()
             }.show()
     }
 
-    // Adiciona o filme na lista
-    private fun addMovieDB() {
-        viewModel.saveMovieDB(movie)
+    // Salva o filme na MyList
+    private fun saveMovieList() {
+        viewModel.saveMovieList(movie)
     }
 }
