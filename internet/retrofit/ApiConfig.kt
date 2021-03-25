@@ -1,4 +1,4 @@
-package com.app.moviester.retrofit
+package com.app.moviester.internet.retrofit
 
 object ApiConfig {
 
@@ -10,4 +10,5 @@ object ApiEndPoint {
     const val GET_POPULAR_MOVIE = "movie/popular"
     const val GET_TOP_RATE_MOVIE = "movie/top_rated"
     const val GET_MOVIE_DETAIL = "movie/{id}"
+    const val GET_SEARCH_MOVIE = "search/multi"
 }

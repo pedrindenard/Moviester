@@ -1,4 +1,4 @@
-package com.app.moviester.ui.mylist
+package com.app.moviester.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,15 +10,17 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.moviester.MyApp
 import com.app.moviester.R
-import com.app.moviester.model.Movie
+import com.app.moviester.internet.model.Movie
 import com.app.moviester.ui.adapter.MyListAdapter
+import com.app.moviester.ui.viewmodel.MovieViewModel
+import com.app.moviester.ui.viewmodel.MovieViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.fragment_my_list.*
 
 class MyListFragment : Fragment() {
 
-    private val viewModel: MyListViewModel by viewModels {
-        MyListViewModelFactory((activity?.application as MyApp).repository)
+    private val viewModel: MovieViewModel by viewModels {
+        MovieViewModelFactory((activity?.application as MyApp).repository)
     }
 
     private val adapter by lazy {
@@ -45,11 +47,11 @@ class MyListFragment : Fragment() {
 
     // Configura Adapter
     private fun configMovieListDatabase() {
-        list_movie_database.adapter = adapter
-        list_movie_database.layoutManager = LinearLayoutManager(context)
         adapter?.onClickListener = {
             configDialogAlertDeleteMovie(it)
         }
+        list_movie_database.adapter = adapter
+        list_movie_database.layoutManager = LinearLayoutManager(context)
     }
 
     // Busca os filmes na MyList
@@ -66,7 +68,7 @@ class MyListFragment : Fragment() {
     private fun configDialogAlertDeleteMovie(movie: Movie){
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Alerta de remoção!")
-            .setMessage("Você deseja remover o filme '${movie.title}' da sua lista?")
+            .setMessage("Você deseja remover o filme ${movie.title} da sua lista?")
             .setPositiveButton("Confirmar") { dialog, _ ->
                 viewModel.deleteMovieList(movie)
                 adapter?.deleteMovieList(movie)

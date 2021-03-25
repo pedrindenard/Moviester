@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.moviester.R
-import com.app.moviester.model.Movie
+import com.app.moviester.internet.model.Movie
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_list.view.*
 

@@ -1,6 +1,6 @@
-package com.app.moviester.retrofit.response
+package com.app.moviester.internet.retrofit.response
 
-import com.app.moviester.model.Movie
+import com.app.moviester.internet.model.Movie
 import com.google.gson.annotations.SerializedName
 
 // Recebe resposta dos endpoint

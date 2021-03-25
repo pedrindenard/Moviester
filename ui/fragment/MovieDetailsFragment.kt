@@ -1,4 +1,4 @@
-package com.app.moviester.ui.details
+package com.app.moviester.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +13,9 @@ import androidx.navigation.ui.NavigationUI
 import com.app.moviester.MyApp
 import com.app.moviester.R
 import com.app.moviester.extension.ratingBarConverter
-import com.app.moviester.model.Movie
+import com.app.moviester.internet.model.Movie
+import com.app.moviester.ui.viewmodel.MovieViewModel
+import com.app.moviester.ui.viewmodel.MovieViewModelFactory
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestOptions
@@ -31,8 +33,8 @@ class MovieDetailsFragment : Fragment() {
         argument.movie
     }
 
-    private val viewModel: MovieDetailsViewModel by viewModels {
-        MovieDetailsViewModelFactory((activity?.application as MyApp).repository)
+    private val viewModel: MovieViewModel by viewModels {
+        MovieViewModelFactory((activity?.application as MyApp).repository)
     }
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -53,9 +55,8 @@ class MovieDetailsFragment : Fragment() {
         viewModel.getMovieDetails(movie.id)
         viewModel.mResponse.observe(viewLifecycleOwner, {
             if (it.isSuccessful) {
-                topAppBar.title = "Detalhes do filme"
                 text_movie_details_release_date.text = it.body()?.releaseDate
-                text_movie_details_runtime_mylist.text = it.body()?.runtime.toString()
+                text_movie_details_runtime.text = it.body()?.runtime.toString()
                 text_movie_details_title.text = it.body()?.title
                 text_movie_details_description.text = it.body()?.description
                 getScore(it)
@@ -108,12 +109,12 @@ class MovieDetailsFragment : Fragment() {
     private fun configDialogAlertAddMovie() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.add_movie_mylist)
-            .setPositiveButton("SALVAR") { dialog, _ ->
+            .setPositiveButton("Salvar") { dialog, _ ->
                 saveMovieList()
                 Toast.makeText(requireContext(), "Filme adicionado com sucesso!", Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
             }
-            .setNeutralButton("CANCELAR") { dialog, _ ->
+            .setNeutralButton("Cancelar") { dialog, _ ->
                 dialog.dismiss()
             }.show()
     }

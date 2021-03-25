@@ -1,7 +1,7 @@
 package com.app.moviester.database.dao
 
 import androidx.room.*
-import com.app.moviester.model.Movie
+import com.app.moviester.internet.model.Movie
 import kotlinx.coroutines.flow.Flow
 import androidx.room.OnConflictStrategy.REPLACE
 

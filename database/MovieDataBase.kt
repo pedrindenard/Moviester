@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.app.moviester.database.dao.MovieDAO
-import com.app.moviester.model.Movie
+import com.app.moviester.internet.model.Movie
 
 // Criando o DataBase e atribuindo a classe Movie
 @Database(entities = [Movie::class], version = 1, exportSchema = false)

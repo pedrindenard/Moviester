@@ -1,4 +1,4 @@
-package com.app.moviester.ui.framelayout.popular
+package com.app.moviester.ui.fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -11,14 +11,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.moviester.MyApp
 import com.app.moviester.R
-import com.app.moviester.model.Movie
+import com.app.moviester.internet.model.Movie
 import com.app.moviester.ui.adapter.MoviesAdapter
-import kotlinx.android.synthetic.main.fragment_popular.*
+import com.app.moviester.ui.viewmodel.MovieViewModel
+import com.app.moviester.ui.viewmodel.MovieViewModelFactory
+import kotlinx.android.synthetic.main.fragment_top_rate.*
 
-class PopularFragment : Fragment() {
+class TopRateFragment : Fragment() {
 
-    private val viewModel: PopularViewModel by viewModels {
-        PopularViewModelFactory((activity?.application as MyApp).repository)
+    private val viewModel: MovieViewModel by viewModels {
+        MovieViewModelFactory((activity?.application as MyApp).repository)
     }
 
     // Adapter dos recyclerview
@@ -35,13 +37,13 @@ class PopularFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        getPopularMovie()
+        getTopRateMovie()
     }
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_popular, container, false)
+        return inflater.inflate(R.layout.fragment_top_rate, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,14 +56,14 @@ class PopularFragment : Fragment() {
         adapter?.onItemClickListener = {
             goToMovieDetails(it)
         }
-        up_coming_movie_list.adapter = adapter
-        up_coming_movie_list.layoutManager = LinearLayoutManager(context)
+        top_rate_movie_list.adapter = adapter
+        top_rate_movie_list.layoutManager = LinearLayoutManager(context)
     }
 
-    // Busca filmes da lista Popular da API
-    private fun getPopularMovie() {
-        viewModel.getPopularMovie()
-        viewModel.mResponse.observe(this, {
+    // Busca filmes da lista TopRate da API
+    private fun getTopRateMovie() {
+        viewModel.getTopRateMovie()
+        viewModel.mSearchResponse.observe(this, {
             if (it.isSuccessful) {
                 it.body()?.let { movies ->
                     movies.results.let { it1 -> adapter?.append(it1) }
@@ -74,8 +76,8 @@ class PopularFragment : Fragment() {
 
     // Vai para o fragment Movie Details
     private fun goToMovieDetails(movie: Movie) {
-        val direction = PopularFragmentDirections
-            .actionNavigationPopularToMovieDetailsFragment(movie)
+        val direction =
+            TopRateFragmentDirections.actionNavigationTopRateToMovieDetailsFragment(movie)
         controller.navigate(direction)
     }
 }

@@ -1,4 +1,4 @@
-package com.app.moviester.model
+package com.app.moviester.internet.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

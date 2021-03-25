@@ -1,7 +1,7 @@
-package com.app.moviester.retrofit
+package com.app.moviester.internet.retrofit
 
-import com.app.moviester.retrofit.ApiConfig.API_KEY
-import com.app.moviester.retrofit.ApiConfig.BASE_URL
+import com.app.moviester.internet.retrofit.ApiConfig.API_KEY
+import com.app.moviester.internet.retrofit.ApiConfig.BASE_URL
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -24,8 +24,8 @@ class AppRetrofit {
             .client(client)
             .build()
     }
-    val movieService: Api by lazy {
-        retrofit.create(Api::class.java)
+    val movieService: ApiService by lazy {
+        retrofit.create(ApiService::class.java)
     }
 }
 

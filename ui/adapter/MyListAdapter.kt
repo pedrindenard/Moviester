@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.moviester.R
 import com.app.moviester.extension.ratingBarConverter
-import com.app.moviester.model.Movie
+import com.app.moviester.internet.model.Movie
 import com.app.moviester.ui.adapter.MyListAdapter.MyListViewHolder
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_mylist.view.*
@@ -57,9 +57,6 @@ class MyListAdapter(private val context: Context,
         private val movieRatingBar by lazy {
             view.text_movie_details_rate_mylist
         }
-        private val movieRuntime by lazy {
-            view.text_movie_details_runtime_mylist
-        }
         private val movieReleaseDate by lazy {
             view.text_movie_details_release_date_mylist
         }
@@ -83,7 +80,6 @@ class MyListAdapter(private val context: Context,
             movieDescription.text = movie.description
             ratingBarConverter(movieRatingBar, movie.rate)
             movieReleaseDate.text = movie.releaseDate
-            movieRuntime.text = movie.runtime.toString()
 
             Glide.with(context)
                 .load("https://image.tmdb.org/t/p/w500"+movie.poster)

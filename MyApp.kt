@@ -2,7 +2,7 @@ package com.app.moviester
 
 import android.app.Application
 import com.app.moviester.database.MovieDataBase
-import com.app.moviester.repository.MovieRepository
+import com.app.moviester.internet.repository.MovieRepository
 
 open class MyApp : Application() {
 
