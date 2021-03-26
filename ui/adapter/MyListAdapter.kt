@@ -12,11 +12,12 @@ import com.app.moviester.ui.adapter.MyListAdapter.MyListViewHolder
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_mylist.view.*
 
+// Adapter Recyclerview
+
 class MyListAdapter(private val context: Context,
                     private val movies: MutableList<Movie> = mutableListOf(),
                     var onClickListener: (movie: Movie) -> Unit = {}
 ) : RecyclerView.Adapter<MyListViewHolder>() {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyListViewHolder {
         val view = LayoutInflater
@@ -25,11 +26,11 @@ class MyListAdapter(private val context: Context,
         return MyListViewHolder(view)
     }
 
-    override fun getItemCount(): Int = movies.size
-
     override fun onBindViewHolder(holder: MyListViewHolder, position: Int) {
         holder.bind(movies[position])
     }
+
+    override fun getItemCount(): Int = movies.size
 
     fun append(movie: List<Movie>) {
         this.movies.clear()
@@ -83,7 +84,7 @@ class MyListAdapter(private val context: Context,
 
             Glide.with(context)
                 .load("https://image.tmdb.org/t/p/w500"+movie.poster)
-                .placeholder(R.drawable.ic_movie_error)
+                .placeholder(R.drawable.ic_error)
                 .into(moviePoster)
         }
     }

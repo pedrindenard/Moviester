@@ -12,11 +12,10 @@ import kotlinx.android.synthetic.main.item_list.view.*
 
 // Adapter Recyclerview
 
-class MoviesAdapter(private val context: Context,
-                    private val movies: MutableList<Movie> = mutableListOf(),
-                    var onItemClickListener: (movie: Movie) -> Unit = {}
-) : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
-
+class MovieAdapter(private val context: Context,
+                   private val movies: MutableList<Movie> = mutableListOf(),
+                   var onItemClickListener: (movie: Movie) -> Unit = {},
+) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater
@@ -64,8 +63,10 @@ class MoviesAdapter(private val context: Context,
             movieDescription.text = movie.description
             Glide.with(context)
                 .load("https://image.tmdb.org/t/p/w500"+movie.backdrop)
-                .placeholder(R.drawable.ic_movie_error)
+                .placeholder(R.drawable.ic_error)
                 .into(movieBackdrop)
         }
     }
+
+
 }

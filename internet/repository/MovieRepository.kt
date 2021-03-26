@@ -8,16 +8,12 @@ import com.app.moviester.internet.retrofit.response.MovieResponse
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
-class MovieRepository(private val dao: MovieDAO, private val apiService: ApiService = AppRetrofit().movieService) {
+class MovieRepository(private val dao: MovieDAO,
+                      private val apiService: ApiService = AppRetrofit().movieService) {
 
     // Busca filmes Popular na API
     suspend fun getPopularMovies(): Response<MovieResponse> {
         return apiService.getPopularMovies()
-    }
-
-    // Busca filmes TopRate na API
-    suspend fun getTopRateMovies(): Response<MovieResponse> {
-        return apiService.getTopRateMovies()
     }
 
     // Busca detalhes dos filmes

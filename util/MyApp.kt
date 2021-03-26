@@ -1,4 +1,4 @@
-package com.app.moviester
+package com.app.moviester.util
 
 import android.app.Application
 import com.app.moviester.database.MovieDataBase

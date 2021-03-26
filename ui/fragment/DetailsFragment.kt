@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.NavigationUI
-import com.app.moviester.MyApp
+import com.app.moviester.util.MyApp
 import com.app.moviester.R
 import com.app.moviester.extension.ratingBarConverter
 import com.app.moviester.internet.model.Movie
@@ -25,9 +25,9 @@ import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.fragment_movie_detail.*
 import retrofit2.Response
 
-class MovieDetailsFragment : Fragment() {
+class DetailsFragment : Fragment() {
 
-    private val argument by navArgs<MovieDetailsFragmentArgs>()
+    private val argument by navArgs<DetailsFragmentArgs>()
 
     private val movie by lazy {
         argument.movie
@@ -53,7 +53,7 @@ class MovieDetailsFragment : Fragment() {
     // Informações na tela
     private fun getMovieDetails() {
         viewModel.getMovieDetails(movie.id)
-        viewModel.mResponse.observe(viewLifecycleOwner, {
+        viewModel.mResponseDetails.observe(viewLifecycleOwner, {
             if (it.isSuccessful) {
                 text_movie_details_release_date.text = it.body()?.releaseDate
                 text_movie_details_runtime.text = it.body()?.runtime.toString()

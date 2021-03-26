@@ -7,15 +7,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.app.moviester.MyApp
+import com.app.moviester.util.MyApp
 import com.app.moviester.R
 import com.app.moviester.internet.model.Movie
-import com.app.moviester.ui.adapter.MoviesAdapter
+import com.app.moviester.ui.adapter.MovieAdapter
 import com.app.moviester.ui.viewmodel.MovieViewModel
 import com.app.moviester.ui.viewmodel.MovieViewModelFactory
 import kotlinx.android.synthetic.main.fragment_popular.*
 
-class PopularFragment : Fragment() {
+class MovieFragment : Fragment() {
 
     private val viewModel: MovieViewModel by viewModels {
         MovieViewModelFactory((activity?.application as MyApp).repository)
@@ -24,7 +24,7 @@ class PopularFragment : Fragment() {
     // Adapter dos recyclerview
     private val adapter by lazy {
         context?.let {
-            MoviesAdapter(context = it)
+            MovieAdapter(context = it)
         }
     }
 
@@ -61,7 +61,7 @@ class PopularFragment : Fragment() {
     // Busca filmes da lista Popular da API
     private fun getPopularMovie() {
         viewModel.getPopularMovie()
-        viewModel.mSearchResponse.observe(this, {
+        viewModel.mResponseMovie.observe(this, {
             if (it.isSuccessful) {
                 it.body()?.let { movies ->
                     movies.results.let { it1 -> adapter?.append(it1) }
@@ -75,7 +75,7 @@ class PopularFragment : Fragment() {
     // Vai para o fragment Movie Details
     private fun goToMovieDetails(movie: Movie) {
         val direction =
-            PopularFragmentDirections.actionNavigationPopularToMovieDetailsFragment(movie)
+            MovieFragmentDirections.actionNavigationPopularToMovieDetailsFragment(movie)
         controller.navigate(direction)
     }
 }

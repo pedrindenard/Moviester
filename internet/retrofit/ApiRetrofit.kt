@@ -1,7 +1,7 @@
 package com.app.moviester.internet.retrofit
 
-import com.app.moviester.internet.retrofit.ApiConfig.API_KEY
-import com.app.moviester.internet.retrofit.ApiConfig.BASE_URL
+import com.app.moviester.util.Constants.ApiConfig.API_KEY
+import com.app.moviester.util.Constants.ApiConfig.BASE_URL
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response

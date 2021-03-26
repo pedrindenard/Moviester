@@ -9,7 +9,7 @@ import java.io.Serializable
 
 @Entity(tableName = "Movie")
 
-data class  Movie(
+data class Movie(
     @PrimaryKey(autoGenerate = false)
     @SerializedName("id") var id: Int,
     @SerializedName("title") var title: String?,
