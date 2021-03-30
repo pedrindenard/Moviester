@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.moviester.R
 import com.app.moviester.internet.model.Movie
+import com.app.moviester.ui.adapter.MovieAdapter.MovieViewHolder
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_list.view.*
 
@@ -15,7 +16,7 @@ import kotlinx.android.synthetic.main.item_list.view.*
 class MovieAdapter(private val context: Context,
                    private val movies: MutableList<Movie> = mutableListOf(),
                    var onItemClickListener: (movie: Movie) -> Unit = {},
-) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+) : RecyclerView.Adapter<MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater

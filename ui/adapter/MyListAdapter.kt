@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.item_mylist.view.*
 
 class MyListAdapter(private val context: Context,
                     private val movies: MutableList<Movie> = mutableListOf(),
-                    var onClickListener: (movie: Movie) -> Unit = {}
+                    var onItemClickListener: (movie: Movie) -> Unit = {}
 ) : RecyclerView.Adapter<MyListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyListViewHolder {
@@ -69,7 +69,7 @@ class MyListAdapter(private val context: Context,
             movieDelete?.let {
                 it.setOnClickListener {
                     if(::movie.isInitialized){
-                        onClickListener(movie)
+                        onItemClickListener(movie)
                     }
                 }
             }

@@ -5,15 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.app.moviester.R
 import com.app.moviester.internet.model.Movie
-import com.app.moviester.ui.adapter.MovieAdapter
+import com.app.moviester.ui.adapter.SearchAdapter
 import com.app.moviester.ui.viewmodel.MovieViewModel
 import com.app.moviester.ui.viewmodel.MovieViewModelFactory
 import com.app.moviester.util.MyApp
@@ -33,7 +34,7 @@ class SearchFragment : Fragment() {
     // Adapter dos recyclerview
     private val adapter by lazy {
         context?.let {
-            MovieAdapter(context = it)
+            SearchAdapter(context = it)
         }
     }
 
@@ -45,6 +46,7 @@ class SearchFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        (activity as AppCompatActivity).supportActionBar?.hide()
         return inflater.inflate(R.layout.fragment_search, container, false)
     }
 
@@ -105,7 +107,7 @@ class SearchFragment : Fragment() {
             goToMovieDetails(it)
         }
         search_movie_list.adapter = adapter
-        search_movie_list.layoutManager = LinearLayoutManager(context)
+        search_movie_list.layoutManager = GridLayoutManager(context,3)
     }
 
     // Vai para o fragment Movie Details

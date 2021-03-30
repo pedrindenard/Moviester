@@ -3,7 +3,7 @@ package com.app.moviester.ui.viewmodel
 import androidx.lifecycle.*
 import com.app.moviester.internet.model.Movie
 import com.app.moviester.internet.repository.MovieRepository
-import com.app.moviester.internet.retrofit.response.MovieResponse
+import com.app.moviester.internet.model.MovieResponse
 import com.app.moviester.util.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response

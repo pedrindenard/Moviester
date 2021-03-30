@@ -1,7 +1,7 @@
 package com.app.moviester.internet.retrofit
 
 import com.app.moviester.internet.model.Movie
-import com.app.moviester.internet.retrofit.response.MovieResponse
+import com.app.moviester.internet.model.MovieResponse
 import com.app.moviester.util.Constants.ApiEndPoint.GET_MOVIE_DETAIL
 import com.app.moviester.util.Constants.ApiEndPoint.GET_POPULAR_MOVIE
 import com.app.moviester.util.Constants.ApiEndPoint.GET_SEARCH_MOVIE

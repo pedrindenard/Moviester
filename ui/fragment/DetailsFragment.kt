@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
@@ -22,7 +23,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import jp.wasabeef.glide.transformations.BlurTransformation
-import kotlinx.android.synthetic.main.fragment_movie_detail.*
+import kotlinx.android.synthetic.main.fragment_details.*
 import retrofit2.Response
 
 class DetailsFragment : Fragment() {
@@ -40,12 +41,12 @@ class DetailsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_movie_detail, container, false
-        )
+        return inflater.inflate(R.layout.fragment_details, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).supportActionBar?.hide()
         configAppBarFunction(view)
         getMovieDetails()
     }
@@ -107,16 +108,19 @@ class DetailsFragment : Fragment() {
 
     // Configura dialog para adiconar filme
     private fun configDialogAlertAddMovie() {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.add_movie_mylist)
-            .setPositiveButton("Salvar") { dialog, _ ->
-                saveMovieList()
-                Toast.makeText(requireContext(), "Filme adicionado com sucesso!", Toast.LENGTH_SHORT).show()
-                dialog.dismiss()
-            }
-            .setNeutralButton("Cancelar") { dialog, _ ->
-                dialog.dismiss()
-            }.show()
+        context?.let {
+            MaterialAlertDialogBuilder(it, R.style.AlertDialogTheme)
+                .setTitle("Alerta de adição!")
+                .setMessage("Você deseja adicionar o filme ${movie.title} na sua lista?")
+                .setPositiveButton("Confirmar") { dialog, _ ->
+                    saveMovieList()
+                    Toast.makeText(requireContext(), "Filme adicionado com sucesso!", Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                }
+                .setNeutralButton("Cancelar") { dialog, _ ->
+                    dialog.dismiss()
+                }.show()
+        }
     }
 
     // Salva o filme na MyList

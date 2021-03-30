@@ -1,4 +1,4 @@
-package com.app.moviester.internet.retrofit.response
+package com.app.moviester.internet.model
 
 import com.app.moviester.internet.model.Movie
 import com.google.gson.annotations.SerializedName

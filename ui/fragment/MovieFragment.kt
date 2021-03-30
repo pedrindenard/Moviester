@@ -3,6 +3,7 @@ package com.app.moviester.ui.fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -13,7 +14,7 @@ import com.app.moviester.internet.model.Movie
 import com.app.moviester.ui.adapter.MovieAdapter
 import com.app.moviester.ui.viewmodel.MovieViewModel
 import com.app.moviester.ui.viewmodel.MovieViewModelFactory
-import kotlinx.android.synthetic.main.fragment_popular.*
+import kotlinx.android.synthetic.main.fragment_movie.*
 
 class MovieFragment : Fragment() {
 
@@ -41,7 +42,8 @@ class MovieFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_popular, container, false)
+        (activity as AppCompatActivity).supportActionBar?.show()
+        return inflater.inflate(R.layout.fragment_movie, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

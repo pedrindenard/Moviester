@@ -1,10 +1,10 @@
 package com.app.moviester.internet.repository
 
-import com.app.moviester.database.dao.MovieDAO
+import com.app.moviester.database.MovieDAO
 import com.app.moviester.internet.model.Movie
 import com.app.moviester.internet.retrofit.ApiService
 import com.app.moviester.internet.retrofit.AppRetrofit
-import com.app.moviester.internet.retrofit.response.MovieResponse
+import com.app.moviester.internet.model.MovieResponse
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 

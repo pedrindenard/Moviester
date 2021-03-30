@@ -1,4 +1,4 @@
-package com.app.moviester.database.dao
+package com.app.moviester.database
 
 import androidx.room.*
 import com.app.moviester.internet.model.Movie
