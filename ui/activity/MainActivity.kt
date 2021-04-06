@@ -21,10 +21,12 @@ import androidx.core.view.GravityCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.app.moviester.R
+import com.app.moviester.ui.fragment.MapsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_maps.*
 import kotlinx.android.synthetic.main.item_drawer.*
 import java.io.*
 import java.util.*
@@ -85,15 +87,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_item_camera -> selectImage(this@MainActivity)
-            R.id.nav_item_gallery -> Toast.makeText(
-                this,
-                "Botão inutil ainda!!",
-                Toast.LENGTH_SHORT
-            ).show()
-            R.id.nav_item_config -> Toast.makeText(this, "Botão inutil ainda!!", Toast.LENGTH_SHORT)
-                .show()
+            R.id.nav_item_gallery -> ""
+            R.id.nav_item_config -> ""
         }
-        drawerLayout.closeDrawer(GravityCompat.START) // Fecha o Menu quano clicka em algum botão
+        drawerLayout.closeDrawer(GravityCompat.START) // Fecha o Menu quando clicka em algum botão
         return true
     }
 

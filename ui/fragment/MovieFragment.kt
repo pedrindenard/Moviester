@@ -49,7 +49,7 @@ class MovieFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         configAdapterRecyclerView()
-   }
+    }
 
     // Define adapter e ação de click
     private fun configAdapterRecyclerView() {
